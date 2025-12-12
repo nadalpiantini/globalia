@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import SmoothScroll from "./components/SmoothScroll";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -9,8 +8,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Globalia | Cine, Turismo y Marca",
-  description: "La Plataforma Estratégica que Globalia Puede Construir - Cine, Turismo y Marca",
+  title: "Globalia — Plataforma Audiovisual (RD + Madrid)",
+  description:
+    "Presentación-app explicativa: Art.34 y Art.39 separados. Hub Madrid + Ejecución RD.",
 };
 
 export default function RootLayout({
@@ -20,10 +20,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es">
-      <body className={`${inter.variable} antialiased bg-black text-white`}>
-        <SmoothScroll>
-          {children}
-        </SmoothScroll>
+      <body className={`${inter.variable} antialiased relative`}>
+        {children}
       </body>
     </html>
   );
