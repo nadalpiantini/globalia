@@ -73,7 +73,13 @@ Loader (3.8s) → ActoUno → ActoDos → ActoTres → ActoCuatro → ActoCinco 
 
 - **Sprint 1**: Estructura base + 5 Actos ✅
 - **Sprint 2**: Polish visual + Performance ✅
-- **Sprint 3**: Deploy + Analytics (pendiente)
+- **Sprint 3**: Deploy Vercel + Dominio custom ✅
+
+## Deployment
+
+- **Vercel**: https://globalia.vercel.app
+- **Custom Domain**: https://globalia.lacasitafilms.com
+- **DNS**: Cloudflare (CNAME → cname.vercel-dns.com)
 
 ## Out of Scope
 
