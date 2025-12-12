@@ -1,6 +1,14 @@
 "use client";
 
 import { create } from "zustand";
+import {
+  Landmark,
+  TrendingUp,
+  Film,
+  Calculator,
+  ArrowRight,
+  Percent,
+} from "lucide-react";
 
 type Art34State = {
   isr: number;
@@ -27,15 +35,25 @@ export default function Art34Simulator() {
   return (
     <div className="grid md:grid-cols-2 gap-6">
       <div className="collage-paper p-6">
-        <div className="stamp">Ruta A · Artículo 34</div>
-        <p className="mt-4 text-white/80">
-          Esta ruta usa <b>ISR local de RD</b> para invertir en{" "}
-          <b>proyectos dominicanos aprobados</b>. No se mezcla con Art.39.
-        </p>
+        <div className="flex items-center gap-3">
+          <div className="stamp flex items-center gap-2">
+            <Landmark className="w-4 h-4" />
+            Ruta A · Artículo 34
+          </div>
+        </div>
+
+        <div className="mt-4 flex items-start gap-3 text-white/80">
+          <TrendingUp className="w-5 h-5 mt-1 opacity-60 flex-shrink-0" />
+          <p>
+            Esta ruta usa <b>ISR local de RD</b> para invertir en{" "}
+            <b>proyectos dominicanos aprobados</b>. No se mezcla con Art.39.
+          </p>
+        </div>
 
         <div className="mt-6 space-y-5">
           <div>
-            <label className="text-sm text-white/70">
+            <label className="text-sm text-white/70 flex items-center gap-2">
+              <Calculator className="w-4 h-4" />
               ISR a pagar (RD) — estimado anual
             </label>
             <input
@@ -51,8 +69,8 @@ export default function Art34Simulator() {
           </div>
 
           <div>
-            <label className="text-sm text-white/70">
-              % a utilizar (máx 25%)
+            <label className="text-sm text-white/70 flex items-center gap-2">
+              <Percent className="w-4 h-4" />% a utilizar (máx 25%)
             </label>
             <input
               type="range"
@@ -69,41 +87,55 @@ export default function Art34Simulator() {
       </div>
 
       <div className="collage-paper p-6">
-        <div className="stamp">Resultado operativo</div>
+        <div className="stamp flex items-center gap-2">
+          <Film className="w-4 h-4" />
+          Resultado operativo
+        </div>
 
         <div className="mt-5">
           <div className="text-sm text-white/70">
             Capacidad anual de inversión (Art.34)
           </div>
-          <div className="text-4xl md:text-5xl font-semibold mt-2">
+          <div className="text-4xl md:text-5xl font-semibold mt-2 flex items-center gap-3">
             RD$ {fmt(maxInvestment)}
           </div>
-          <div className="text-white/70 mt-3">
-            Ese monto se estructura como inversión en producción dominicana
-            aprobada por DGCINE, y se deduce según el régimen aplicable de
-            Art.34.
+          <div className="text-white/70 mt-3 flex items-start gap-2">
+            <ArrowRight className="w-4 h-4 mt-1 flex-shrink-0" />
+            <span>
+              Ese monto se estructura como inversión en producción dominicana
+              aprobada por DGCINE.
+            </span>
           </div>
         </div>
 
         <div className="mt-8 space-y-3 text-white/75">
           <div className="flex justify-between">
-            <span>ISR total (RD)</span>
+            <span className="flex items-center gap-2">
+              <Landmark className="w-4 h-4 opacity-50" />
+              ISR total (RD)
+            </span>
             <span>RD$ {fmt(isr)}</span>
           </div>
           <div className="flex justify-between">
-            <span>Techo Art.34</span>
+            <span className="flex items-center gap-2">
+              <Percent className="w-4 h-4 opacity-50" />
+              Techo Art.34
+            </span>
             <span>{pctSafe}%</span>
           </div>
           <div className="hrline my-2" />
           <div className="flex justify-between font-semibold">
-            <span>Inversión anual estimada</span>
+            <span className="flex items-center gap-2">
+              <Film className="w-4 h-4 opacity-50" />
+              Inversión anual
+            </span>
             <span>RD$ {fmt(maxInvestment)}</span>
           </div>
         </div>
 
         <div className="mt-6 text-xs text-white/60">
           Nota: Ajusta números finales con fiscal/finanzas y parámetros vigentes
-          del programa (DGCINE/DGII).
+          (DGCINE/DGII).
         </div>
       </div>
     </div>
