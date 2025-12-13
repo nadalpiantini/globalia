@@ -2,8 +2,14 @@
 
 import { useState } from "react";
 import Loader from "./components/Loader";
-import LenisProvider from "./components/LenisProvider";
+import SmoothScroll from "./components/SmoothScroll";
+import CustomCursor from "./components/CustomCursor";
+import Particles from "./components/Particles";
+import ProgressNav from "./components/ProgressNav";
 import TopNav from "./components/TopNav";
+import HeroCinematic from "./components/HeroCinematic";
+import ActoMarcoLegal from "./components/ActoMarcoLegal";
+import ActoSistema from "./components/ActoSistema";
 import Chapter from "./components/Chapter";
 import Collage from "./components/Collage";
 import MapFlight from "./components/MapFlight";
@@ -11,6 +17,8 @@ import Art34Simulator from "./components/Art34Simulator";
 import Art39Marketplace from "./components/Art39Marketplace";
 import AssetWall from "./components/AssetWall";
 import DecisionChecklist from "./components/DecisionChecklist";
+import BoardroomDashboard from "./components/BoardroomDashboard";
+import { useModeStore } from "./store/modeStore";
 import {
   Scale,
   Landmark,
@@ -29,25 +37,51 @@ import {
 
 export default function Page() {
   const [isLoading, setIsLoading] = useState(true);
+  const { mode } = useModeStore();
 
   return (
     <>
       {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
 
+      {/* Custom cursor - only on desktop */}
+      <CustomCursor />
+
+      {/* Floating particles background */}
+      <Particles count={70} />
+
+      {/* Progress navigation */}
+      {!isLoading && <ProgressNav />}
+
       <main
         style={{
           opacity: isLoading ? 0 : 1,
-          transition: "opacity 0.5s ease-in-out",
+          transition: "opacity 0.8s ease-in-out",
         }}
       >
-        <LenisProvider>
+        <SmoothScroll>
           <TopNav />
+
+          {/* HERO CINEMATOGRÁFICO - Word cascade with scroll-pinning */}
+          <HeroCinematic />
+
+          {/* BOARDROOM MODE: Executive Dashboard */}
+          {mode === "boardroom" && (
+            <section className="relative min-h-screen px-6 py-20 max-w-6xl mx-auto">
+              <BoardroomDashboard />
+            </section>
+          )}
+
+          {/* ACTO: ISR → ART.34 Visual Transition (only in Experience mode) */}
+          {mode === "experience" && <ActoMarcoLegal />}
 
           {/* CAP 1 - Marco Legal */}
           <Chapter
             id="cap-1"
             kicker="Capítulo 1"
             title="Marco legal: dos rutas distintas (no se mezclan)"
+            pinned={mode === "experience"}
+            scrollDistance={2000}
+            filmGrain
           >
             <div className="grid md:grid-cols-2 gap-6">
               <Collage>
@@ -93,6 +127,8 @@ export default function Page() {
             id="cap-2"
             kicker="Capítulo 2"
             title="Ruta A: Artículo 34 (ISR local → inversión dominicana)"
+            pinned={mode === "experience"}
+            scrollDistance={2200}
           >
             <Art34Simulator />
           </Chapter>
@@ -102,6 +138,8 @@ export default function Page() {
             id="cap-3"
             kicker="Capítulo 3"
             title="Ruta B: Artículo 39 (gasto local → crédito transferible → mercado)"
+            pinned={mode === "experience"}
+            scrollDistance={2200}
           >
             <Art39Marketplace />
           </Chapter>
@@ -111,6 +149,9 @@ export default function Page() {
             id="cap-4"
             kicker="Capítulo 4"
             title="República Dominicana: ejecución (producción real + infraestructura)"
+            pinned={mode === "experience"}
+            scrollDistance={1800}
+            filmGrain
           >
             <div className="grid md:grid-cols-2 gap-6">
               <Collage>
@@ -159,11 +200,16 @@ export default function Page() {
           {/* CAP 5 - Madrid Hub (Map with flight) */}
           <MapFlight />
 
+          {/* ACTO: Sistema Visual (only in Experience mode) */}
+          {mode === "experience" && <ActoSistema />}
+
           {/* CAP 6 - Sistema Completo */}
           <Chapter
             id="cap-6"
             kicker="Capítulo 6"
             title="Sistema completo: Madrid atrae · RD ejecuta · Globalia capitaliza"
+            pinned={mode === "experience"}
+            scrollDistance={2000}
           >
             <div className="grid md:grid-cols-3 gap-6">
               <Collage>
@@ -222,6 +268,9 @@ export default function Page() {
             id="cap-8"
             kicker="Capítulo 8"
             title="Propuesta formal a Globalia (explicativa, ejecutable)"
+            pinned={mode === "experience"}
+            scrollDistance={1600}
+            filmGrain
           >
             <Collage className="p-8">
               <div className="stamp flex items-center gap-2">
@@ -270,23 +319,26 @@ export default function Page() {
             id="cap-9"
             kicker="Capítulo 9"
             title='Decisiones para decir "sí" (sin humo)'
+            pinned={mode === "experience"}
+            scrollDistance={2000}
           >
             <DecisionChecklist />
             <div className="mt-10 text-center">
               <a
                 href="mailto:alan@sujeto10.com"
-                className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full bg-white text-black font-semibold hover:bg-white/90 transition"
+                className="inline-flex items-center justify-center gap-2 px-10 py-4 rounded-full bg-white text-black font-semibold hover:bg-white/90 hover:scale-105 transition-all duration-300 shadow-lg shadow-white/20"
+                data-cursor-hover
               >
                 <MessageCircle className="w-5 h-5" />
                 Hablemos (reunión de 30 min)
               </a>
               <div className="mt-4 text-xs text-white/55">
-                Próximo upgrade: &quot;Boardroom Mode&quot; + export de 1-pager
-                PDF + lightbox de evidencia.
+                Toggle arriba: Experience ↔ Boardroom | Próximo: export PDF +
+                lightbox de evidencia.
               </div>
             </div>
           </Chapter>
-        </LenisProvider>
+        </SmoothScroll>
       </main>
     </>
   );

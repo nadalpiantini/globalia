@@ -11,7 +11,7 @@ interface Particle {
   opacity: number;
 }
 
-export default function Particles({ count = 50 }: { count?: number }) {
+export default function Particles({ count = 60 }: { count?: number }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
   const animationRef = useRef<number>(0);
@@ -31,13 +31,13 @@ export default function Particles({ count = 50 }: { count?: number }) {
     resizeCanvas();
     window.addEventListener("resize", resizeCanvas);
 
-    // Inicializar partículas
+    // Initialize particles
     particlesRef.current = Array.from({ length: count }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      size: Math.random() * 2 + 0.5,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: (Math.random() - 0.5) * 0.4,
+      size: Math.random() * 2.5 + 0.5,
       opacity: Math.random() * 0.5 + 0.1,
     }));
 
@@ -45,7 +45,7 @@ export default function Particles({ count = 50 }: { count?: number }) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       particlesRef.current.forEach((particle) => {
-        // Mover
+        // Move
         particle.x += particle.vx;
         particle.y += particle.vy;
 
@@ -55,7 +55,7 @@ export default function Particles({ count = 50 }: { count?: number }) {
         if (particle.y < 0) particle.y = canvas.height;
         if (particle.y > canvas.height) particle.y = 0;
 
-        // Dibujar
+        // Draw
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity})`;
@@ -76,7 +76,7 @@ export default function Particles({ count = 50 }: { count?: number }) {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 pointer-events-none z-[1]"
+      className="fixed inset-0 pointer-events-none z-[1]"
       style={{ mixBlendMode: "screen" }}
     />
   );

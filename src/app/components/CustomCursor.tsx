@@ -1,14 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
+
+// Custom hook to check if mobile
+function useIsMobile() {
+  const subscribe = (callback: () => void) => {
+    window.addEventListener("resize", callback);
+    return () => window.removeEventListener("resize", callback);
+  };
+  const getSnapshot = () => window.innerWidth < 768;
+  const getServerSnapshot = () => true; // Default to mobile on server
+
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+}
 
 export default function CustomCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
+
     const handleMouseMove = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
       if (!isVisible) setIsVisible(true);
@@ -17,10 +31,9 @@ export default function CustomCursor() {
     const handleMouseEnter = () => setIsVisible(true);
     const handleMouseLeave = () => setIsVisible(false);
 
-    // Detectar hover en elementos interactivos
-    const handleElementHover = () => {
+    // Detect hover on interactive elements
+    const setupHoverListeners = () => {
       const interactiveElements = document.querySelectorAll("a, button, [data-cursor-hover]");
-
       interactiveElements.forEach((el) => {
         el.addEventListener("mouseenter", () => setIsHovering(true));
         el.addEventListener("mouseleave", () => setIsHovering(false));
@@ -31,24 +44,22 @@ export default function CustomCursor() {
     document.addEventListener("mouseenter", handleMouseEnter);
     document.addEventListener("mouseleave", handleMouseLeave);
 
-    // Timeout para asegurar que el DOM está listo
-    setTimeout(handleElementHover, 1000);
+    // Timeout to ensure DOM is ready
+    const timeout = setTimeout(setupHoverListeners, 500);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       document.removeEventListener("mouseenter", handleMouseEnter);
       document.removeEventListener("mouseleave", handleMouseLeave);
+      clearTimeout(timeout);
     };
   }, [isVisible]);
 
-  // Ocultar en móvil
-  if (typeof window !== "undefined" && window.innerWidth < 768) {
-    return null;
-  }
+  if (isMobile) return null;
 
   return (
     <>
-      {/* Cursor principal - punto */}
+      {/* Main cursor - dot */}
       <motion.div
         className="fixed top-0 left-0 w-2 h-2 bg-white rounded-full pointer-events-none z-[9999] mix-blend-difference"
         animate={{
@@ -60,7 +71,7 @@ export default function CustomCursor() {
         style={{ opacity: isVisible ? 1 : 0 }}
       />
 
-      {/* Cursor secundario - glow */}
+      {/* Secondary cursor - ring */}
       <motion.div
         className="fixed top-0 left-0 w-10 h-10 border border-white/30 rounded-full pointer-events-none z-[9998]"
         animate={{
@@ -73,7 +84,7 @@ export default function CustomCursor() {
         style={{ opacity: isVisible ? 1 : 0 }}
       />
 
-      {/* Glow ambiental */}
+      {/* Ambient glow */}
       <motion.div
         className="fixed top-0 left-0 w-64 h-64 rounded-full pointer-events-none z-[9997]"
         animate={{
