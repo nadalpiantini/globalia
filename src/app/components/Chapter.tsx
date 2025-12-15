@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useHydrated } from "../hooks/useHydrated";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -30,8 +31,12 @@ export default function Chapter({
 }: ChapterProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const hydrated = useHydrated();
 
   useEffect(() => {
+    // Wait for hydration before initializing GSAP to avoid DOM conflicts
+    if (!hydrated) return;
+
     const section = sectionRef.current;
     const content = contentRef.current;
     if (!section || !content) return;
@@ -46,6 +51,7 @@ export default function Chapter({
             end: `+=${scrollDistance}`,
             scrub: 0.8,
             pin: true,
+            pinType: "transform", // Use CSS transforms instead of DOM manipulation
             anticipatePin: 1,
           },
         });
@@ -150,7 +156,7 @@ export default function Chapter({
     }, section);
 
     return () => ctx.revert();
-  }, [pinned, scrollDistance]);
+  }, [hydrated, pinned, scrollDistance]);
 
   return (
     <section

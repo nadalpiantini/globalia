@@ -8,6 +8,7 @@ import Particles from "./components/Particles";
 import ProgressNav from "./components/ProgressNav";
 import TopNav from "./components/TopNav";
 import HeroCinematic from "./components/HeroCinematic";
+import ClientOnly from "./components/ClientOnly";
 import ActoMarcoLegal from "./components/ActoMarcoLegal";
 import ActoSistema from "./components/ActoSistema";
 import Chapter from "./components/Chapter";
@@ -36,6 +37,20 @@ import {
 } from "lucide-react";
 
 export default function Page() {
+  return (
+    <ClientOnly
+      fallback={
+        <div className="fixed inset-0 bg-black flex items-center justify-center">
+          <div className="text-white/50 text-sm">Loading...</div>
+        </div>
+      }
+    >
+      <PageContent />
+    </ClientOnly>
+  );
+}
+
+function PageContent() {
   const [isLoading, setIsLoading] = useState(true);
   const { mode } = useModeStore();
 

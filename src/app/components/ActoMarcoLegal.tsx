@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useHydrated } from "../hooks/useHydrated";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,8 +13,12 @@ export default function ActoMarcoLegal() {
   const disappearsRef = useRef<HTMLDivElement>(null);
   const art34Ref = useRef<HTMLDivElement>(null);
   const conclusionRef = useRef<HTMLDivElement>(null);
+  const hydrated = useHydrated();
 
   useEffect(() => {
+    // Wait for hydration before initializing GSAP to avoid DOM conflicts
+    if (!hydrated) return;
+
     const container = containerRef.current;
     const isr = isrRef.current;
     const disappears = disappearsRef.current;
@@ -30,6 +35,7 @@ export default function ActoMarcoLegal() {
           end: "+=2600",
           scrub: 0.8,
           pin: true,
+          pinType: "transform", // Use CSS transforms instead of DOM manipulation
           anticipatePin: 1,
         },
       });
@@ -132,7 +138,7 @@ export default function ActoMarcoLegal() {
     }, container);
 
     return () => ctx.revert();
-  }, []);
+  }, [hydrated]);
 
   return (
     <section

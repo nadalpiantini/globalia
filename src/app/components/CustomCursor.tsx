@@ -1,27 +1,27 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-
-// Custom hook to check if mobile
-function useIsMobile() {
-  const subscribe = (callback: () => void) => {
-    window.addEventListener("resize", callback);
-    return () => window.removeEventListener("resize", callback);
-  };
-  const getSnapshot = () => window.innerWidth < 768;
-  const getServerSnapshot = () => true; // Default to mobile on server
-
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-}
 
 export default function CustomCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const isMobile = useIsMobile();
+  const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(true);
+
+  // Ensure consistent server/client render - only show cursor after mount
+  useEffect(() => {
+    setMounted(true);
+    setIsMobile(window.innerWidth < 768);
+
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
+    if (!mounted) return;
 
     const handleMouseMove = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
@@ -53,9 +53,11 @@ export default function CustomCursor() {
       document.removeEventListener("mouseleave", handleMouseLeave);
       clearTimeout(timeout);
     };
-  }, [isVisible]);
+  }, [isVisible, mounted]);
 
-  if (isMobile) return null;
+  // Return null consistently on server AND client until mounted
+  // This prevents hydration mismatch
+  if (!mounted || isMobile) return null;
 
   return (
     <>

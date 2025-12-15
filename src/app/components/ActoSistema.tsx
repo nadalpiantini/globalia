@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useHydrated } from "../hooks/useHydrated";
+
 gsap.registerPlugin(ScrollTrigger);
 
 const nodes = [
@@ -29,8 +31,12 @@ export default function ActoSistema() {
   const svgRef = useRef<SVGSVGElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
   const conclusionRef = useRef<HTMLDivElement>(null);
+  const hydrated = useHydrated();
 
   useEffect(() => {
+    // Wait for hydration before initializing GSAP to avoid DOM conflicts
+    if (!hydrated) return;
+
     const container = containerRef.current;
     const svg = svgRef.current;
     const title = titleRef.current;
@@ -46,6 +52,7 @@ export default function ActoSistema() {
           end: "+=2800",
           scrub: 0.8,
           pin: true,
+          pinType: "transform", // Use CSS transforms instead of DOM manipulation
           anticipatePin: 1,
         },
       });
@@ -142,7 +149,7 @@ export default function ActoSistema() {
     }, container);
 
     return () => ctx.revert();
-  }, []);
+  }, [hydrated]);
 
   // Helper to get node position
   const getNodePos = (id: string) => {

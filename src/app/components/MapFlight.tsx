@@ -3,13 +3,18 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useHydrated } from "../hooks/useHydrated";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function MapFlight() {
   const wrap = useRef<HTMLDivElement>(null);
+  const hydrated = useHydrated();
 
   useEffect(() => {
+    // Wait for hydration before initializing GSAP to avoid DOM conflicts
+    if (!hydrated) return;
+
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -18,6 +23,7 @@ export default function MapFlight() {
           end: "+=2200",
           scrub: true,
           pin: true,
+          pinType: "transform", // Use CSS transforms instead of DOM manipulation
         },
       });
 
@@ -46,7 +52,7 @@ export default function MapFlight() {
     }, wrap);
 
     return () => ctx.revert();
-  }, []);
+  }, [hydrated]);
 
   return (
     <div

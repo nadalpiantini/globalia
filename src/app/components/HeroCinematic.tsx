@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Particles from "./Particles";
+import { useHydrated } from "../hooks/useHydrated";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,8 +13,12 @@ export default function HeroCinematic() {
   const wordsRef = useRef<HTMLDivElement>(null);
   const manifestoRef = useRef<HTMLDivElement>(null);
   const infraRef = useRef<HTMLDivElement>(null);
+  const hydrated = useHydrated();
 
   useEffect(() => {
+    // Wait for hydration before initializing GSAP to avoid DOM conflicts
+    if (!hydrated) return;
+
     const container = containerRef.current;
     const words = wordsRef.current;
     const manifesto = manifestoRef.current;
@@ -28,6 +33,7 @@ export default function HeroCinematic() {
           end: "+=2400",
           scrub: 0.8,
           pin: true,
+          pinType: "transform", // Use CSS transforms instead of DOM manipulation
           anticipatePin: 1,
         },
       });
@@ -85,7 +91,7 @@ export default function HeroCinematic() {
     }, container);
 
     return () => ctx.revert();
-  }, []);
+  }, [hydrated]);
 
   return (
     <section
