@@ -5,7 +5,7 @@ import Slide from "../Slide";
 
 export default function Slide02ProblemISR() {
   return (
-    <Slide id="slide-2">
+    <Slide id="slide-2" pinned scrollDistance={800}>
       <div className="grid md:grid-cols-2 gap-12 items-center">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -35,24 +35,32 @@ export default function Slide02ProblemISR() {
           className="bg-white/10 backdrop-blur-sm p-8 md:p-12 rounded-2xl text-center border border-white/20"
         >
           <p className="text-sm text-white/70 mb-4 uppercase tracking-wider">ISR anual</p>
-          <div className="h-8 bg-white/30 rounded-lg mb-6 overflow-hidden">
+
+          <div className="relative h-8 bg-white/30 rounded-lg mb-6 overflow-hidden">
+            {/* Full bar */}
+            <div className="absolute inset-0 bg-white/50 rounded-lg" />
+
+            {/* Animated depletion */}
             <motion.div
               initial={{ width: "100%" }}
               whileInView={{ width: "0%" }}
-              transition={{ duration: 2, delay: 0.5 }}
+              transition={{ duration: 2, ease: "easeInOut" }}
               viewport={{ once: true }}
-              className="h-full bg-gray-500 rounded-lg"
+              className="absolute inset-y-0 right-0 bg-gray-500 rounded-lg"
             />
           </div>
-          <motion.p
+
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ delay: 2.5 }}
+            transition={{ delay: 2 }}
             viewport={{ once: true }}
-            className="text-white/80 font-semibold"
           >
-            Pago al Estado (sin retorno)
-          </motion.p>
+            <p className="text-white/80 font-semibold text-lg">
+              Pago al Estado
+            </p>
+            <p className="text-gray-400 text-sm">(sin retorno)</p>
+          </motion.div>
         </motion.div>
       </div>
     </Slide>

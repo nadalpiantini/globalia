@@ -15,7 +15,7 @@ export default function Slide15Roadmap() {
   ];
 
   return (
-    <Slide id="slide-15">
+    <Slide id="slide-15" pinned scrollDistance={1200}>
       <div className="text-center max-w-4xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: -30 }}

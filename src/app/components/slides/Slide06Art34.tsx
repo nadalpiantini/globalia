@@ -2,11 +2,14 @@
 
 import { motion } from "framer-motion";
 import { Scale } from "lucide-react";
+import { useState } from "react";
 import Slide from "../Slide";
+import SimulatorArt34 from "../SimulatorArt34";
 
 export default function Slide06Art34() {
+  const [showSimulator, setShowSimulator] = useState(false);
   return (
-    <Slide id="slide-6">
+    <Slide id="slide-6" pinned scrollDistance={1000}>
       <div className="grid md:grid-cols-2 gap-12 items-center">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -62,6 +65,20 @@ export default function Slide06Art34() {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Calculator button */}
+      <div className="mt-8 text-center">
+        <button
+          onClick={() => setShowSimulator(!showSimulator)}
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/20 hover:bg-white/30 text-white font-semibold transition-all duration-300 border border-white/30"
+          data-cursor-hover
+        >
+          {showSimulator ? "Ocultar" : "Calcular mi caso"}
+        </button>
+      </div>
+
+      {/* Simulator */}
+      <SimulatorArt34 />
     </Slide>
   );
 }

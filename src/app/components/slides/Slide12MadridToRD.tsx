@@ -6,7 +6,7 @@ import Slide from "../Slide";
 
 export default function Slide12MadridToRD() {
   return (
-    <Slide id="slide-12">
+    <Slide id="slide-12" pinned scrollDistance={1200}>
       <div className="text-center max-w-4xl mx-auto">
         <motion.h2
           initial={{ opacity: 0, y: -30 }}

@@ -16,10 +16,11 @@ const sections = [
   { id: "slide-10", num: 9, label: "RD" },
   { id: "slide-11", num: 10, label: "Madrid" },
   { id: "slide-12", num: 11, label: "Conexión" },
-  { id: "slide-13", num: 12, label: "Beneficios" },
-  { id: "slide-14", num: 13, label: "Ejecución" },
-  { id: "slide-15", num: 14, label: "Roadmap" },
-  { id: "slide-16", num: 15, label: "Cerrar" },
+  { id: "slide-12-5", num: 12, label: "Camino" },
+  { id: "slide-13", num: 13, label: "Beneficios" },
+  { id: "slide-14", num: 14, label: "Ejecución" },
+  { id: "slide-15", num: 15, label: "Roadmap" },
+  { id: "slide-16", num: 16, label: "Cerrar" },
 ];
 
 export default function ProgressNav() {

@@ -19,6 +19,7 @@ import Slide09Art39Hotels from "./components/slides/Slide09Art39Hotels";
 import Slide10RDExecution from "./components/slides/Slide10RDExecution";
 import Slide11MadridOffice from "./components/slides/Slide11MadridOffice";
 import Slide12MadridToRD from "./components/slides/Slide12MadridToRD";
+import Slide12Dot5ProductionPath from "./components/slides/Slide12.5ProductionPath";
 import Slide13GlobaliaBenefits from "./components/slides/Slide13GlobaliaBenefits";
 import Slide14ExecutionProof from "./components/slides/Slide14ExecutionProof";
 import Slide15Roadmap from "./components/slides/Slide15Roadmap";
@@ -73,6 +74,7 @@ function PageContent() {
           <Slide10RDExecution />
           <Slide11MadridOffice />
           <Slide12MadridToRD />
+          <Slide12Dot5ProductionPath />
           <Slide13GlobaliaBenefits />
           <Slide14ExecutionProof />
           <Slide15Roadmap />
