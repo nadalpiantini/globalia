@@ -28,6 +28,7 @@ export default function SimulatorArt34() {
     return new Intl.NumberFormat("es-DO", {
       style: "currency",
       currency: "DOP",
+      minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(amount);
   };

@@ -22,6 +22,7 @@ import Slide12MadridToRD from "./components/slides/Slide12MadridToRD";
 import Slide12Dot5ProductionPath from "./components/slides/Slide12.5ProductionPath";
 import Slide13GlobaliaBenefits from "./components/slides/Slide13GlobaliaBenefits";
 import Slide14ExecutionProof from "./components/slides/Slide14ExecutionProof";
+import Slide14Dot5CaseStudy from "./components/slides/Slide14.5CaseStudy";
 import Slide15Roadmap from "./components/slides/Slide15Roadmap";
 import Slide16Close from "./components/slides/Slide16Close";
 
@@ -77,6 +78,7 @@ function PageContent() {
           <Slide12Dot5ProductionPath />
           <Slide13GlobaliaBenefits />
           <Slide14ExecutionProof />
+          <Slide14Dot5CaseStudy />
           <Slide15Roadmap />
           <Slide16Close />
         </SmoothScroll>
