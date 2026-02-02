@@ -4,16 +4,22 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const sections = [
-  { id: "hero", num: 0, label: "Inicio" },
-  { id: "cap-1", num: 1, label: "Marco Legal" },
-  { id: "cap-2", num: 2, label: "Art. 34" },
-  { id: "cap-3", num: 3, label: "Art. 39" },
-  { id: "cap-4", num: 4, label: "RD Ejecución" },
-  { id: "cap-5", num: 5, label: "Madrid Hub" },
-  { id: "cap-6", num: 6, label: "Sistema" },
-  { id: "cap-7", num: 7, label: "Evidencia" },
-  { id: "cap-8", num: 8, label: "Propuesta" },
-  { id: "cap-9", num: 9, label: "Decisión" },
+  { id: "slide-1", num: 0, label: "Intro" },
+  { id: "slide-2", num: 1, label: "ISR" },
+  { id: "slide-3", num: 2, label: "Audiovisual" },
+  { id: "slide-4", num: 3, label: "Ley 108-10" },
+  { id: "slide-5", num: 4, label: "2 Caminos" },
+  { id: "slide-6", num: 5, label: "Art. 34" },
+  { id: "slide-7", num: 6, label: "Uso Art. 34" },
+  { id: "slide-8", num: 7, label: "Art. 39" },
+  { id: "slide-9", num: 8, label: "Hoteles" },
+  { id: "slide-10", num: 9, label: "RD" },
+  { id: "slide-11", num: 10, label: "Madrid" },
+  { id: "slide-12", num: 11, label: "Conexión" },
+  { id: "slide-13", num: 12, label: "Beneficios" },
+  { id: "slide-14", num: 13, label: "Ejecución" },
+  { id: "slide-15", num: 14, label: "Roadmap" },
+  { id: "slide-16", num: 15, label: "Cerrar" },
 ];
 
 export default function ProgressNav() {
