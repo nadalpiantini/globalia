@@ -104,7 +104,16 @@ export default function Slide14Dot5CaseStudy() {
             viewport={{ once: true }}
             className="mt-4 text-xs text-white/60"
           >
-            Fuente: Arecoa.com - Noviembre 2024
+            Fuente:{" "}
+            <a
+              href="https://www.arecoa.com/sabor-latino/2024/11/11/grupo-pinero-invierte-en-la-industria-cinematografica-estrena-pelicula-amanece-en-samana/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-amber-300 hover:text-amber-200 underline decoration-dashed"
+              data-cursor-hover
+            >
+              Arecoa.com - Noviembre 2024 ↗
+            </a>
           </motion.div>
         </motion.div>
 
