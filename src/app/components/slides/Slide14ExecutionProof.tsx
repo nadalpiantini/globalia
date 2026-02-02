@@ -27,18 +27,6 @@ const projects = [
   },
 ];
 
-const platforms = [
-  {
-    name: "Vlockster",
-    desc: "Streaming de cine independiente",
-    url: "vlockster.com",
-  },
-  {
-    name: "29 Proyectos Validados",
-    desc: "Art. 34 Ley de Cine RD",
-  },
-];
-
 export default function Slide14ExecutionProof() {
   return (
     <Slide id="slide-14">
