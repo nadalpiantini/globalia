@@ -1,14 +1,27 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Building2, Plane, MapPin, Hotel, Clapperboard, Film, Briefcase } from "lucide-react";
+import { Building2, Plane, MapPin, Hotel, Clapperboard, Film, Tv, Globe } from "lucide-react";
+
+type WaypointType = "madrid" | "airline" | "airport" | "hotel" | "studio" | "production" | "streaming" | "global";
 
 interface LogoPlaceholderProps {
-  type: "madrid" | "airline" | "airport" | "hotel" | "studio" | "production" | "filming";
+  type: WaypointType;
   label: string;
   size?: number;
   isActive?: boolean;
 }
+
+const icons: Record<WaypointType, React.ComponentType<{ className?: string }>> = {
+  madrid: Building2,
+  airline: Plane,
+  airport: MapPin,
+  hotel: Hotel,
+  studio: Clapperboard,
+  production: Film,
+  streaming: Tv,
+  global: Globe,
+};
 
 export default function LogoPlaceholder({
   type,
@@ -16,16 +29,6 @@ export default function LogoPlaceholder({
   size = 120,
   isActive = false,
 }: LogoPlaceholderProps) {
-  const icons = {
-    madrid: Building2,
-    airline: Plane,
-    airport: MapPin,
-    hotel: Hotel,
-    studio: Clapperboard,
-    production: Briefcase,
-    filming: Film,
-  };
-
   const Icon = icons[type];
 
   return (

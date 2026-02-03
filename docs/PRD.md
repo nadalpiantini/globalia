@@ -53,6 +53,8 @@ Loader (3.8s) → ActoUno → ActoDos → ActoTres → ActoCuatro → ActoCinco 
 - [x] Loader cinematográfico inicial
 - [x] Cursor personalizado en desktop
 - [x] Responsive mobile/tablet/desktop
+- [x] Audio ambient (oleaje) con controles play/mute
+- [x] Video backgrounds (componente listo, assets pendientes)
 
 ### No Funcionales
 - [x] Performance: 60fps en animaciones
@@ -74,6 +76,7 @@ Loader (3.8s) → ActoUno → ActoDos → ActoTres → ActoCuatro → ActoCinco 
 - **Sprint 1**: Estructura base + 5 Actos ✅
 - **Sprint 2**: Polish visual + Performance ✅
 - **Sprint 3**: Deploy Vercel + Dominio custom ✅
+- **Sprint 4**: Audio/Video backgrounds ✅
 
 ## Deployment
 
@@ -83,8 +86,25 @@ Loader (3.8s) → ActoUno → ActoDos → ActoTres → ActoCuatro → ActoCinco 
 
 ## Out of Scope
 
-- Video backgrounds (placeholder ready)
-- Audio/soundtrack
 - Multi-idioma
 - Analytics integration
 - A/B testing
+
+## Sprint 4 - Componentes Añadidos
+
+### AudioManager (`src/app/components/AudioManager.tsx`)
+- Control de reproducción de audio ambiente
+- Fade-in suave al primer click
+- Botones play/pause y mute/unmute
+- Soporte prefers-reduced-motion
+- Audio: `/public/audio/ambient-cinematic.mp3`
+
+### VideoBackground (`src/app/components/VideoBackground.tsx`)
+- Lazy loading con IntersectionObserver
+- Fallback a poster image
+- Autoplay muted loop
+- Overlays configurables (none, light, dark, gradient)
+- Film grain effect integrado
+
+### Instrucciones para videos
+Ver `public/videos/README.md` para añadir videos cinematográficos.

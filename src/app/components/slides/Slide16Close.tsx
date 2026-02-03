@@ -3,6 +3,14 @@
 import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
 import Slide from "../Slide";
+import VideoBackground from "../VideoBackground";
+
+// Media config - add your video/poster paths here
+const MEDIA = {
+  video: "/videos/close-cinematic.mp4", // Add your emotional closing video
+  poster: "/videos/close-cinematic-poster.jpg", // Fallback poster image
+  hasVideo: false, // Set to true when you add the video
+};
 
 export default function Slide16Close() {
   const keyPoints = [
@@ -14,8 +22,17 @@ export default function Slide16Close() {
   ];
 
   return (
-    <Slide id="slide-16">
-      <div className="text-center max-w-4xl mx-auto">
+    <Slide id="slide-16" className="overflow-hidden">
+      {/* Video Background - activates when hasVideo is true */}
+      {MEDIA.hasVideo && (
+        <VideoBackground
+          src={MEDIA.video}
+          poster={MEDIA.poster}
+          overlay="dark"
+        />
+      )}
+
+      <div className="text-center max-w-4xl mx-auto relative z-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
