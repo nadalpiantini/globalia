@@ -100,7 +100,7 @@ export default function Slide14ExecutionProof() {
           viewport={{ once: true }}
           className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/20 mb-8"
         >
-          <h4 className="text-xl font-bold text-white mb-3">Alan Nadal Pianti</h4>
+          <h4 className="text-xl font-bold text-white mb-3">Alan Nadal Piantini</h4>
           <p className="text-white/80 mb-2">Producer - IMDb Profile</p>
           <a
             href="https://www.imdb.com/name/nm1705423/"

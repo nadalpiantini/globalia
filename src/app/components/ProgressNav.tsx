@@ -22,7 +22,6 @@ const sections = [
   { id: "slide-14-5", num: 15, label: "Caso Real" },
   { id: "slide-15", num: 16, label: "Roadmap" },
   { id: "slide-16", num: 17, label: "Cerrar" },
-  { id: "slide-16", num: 16, label: "Cerrar" },
 ];
 
 export default function ProgressNav() {

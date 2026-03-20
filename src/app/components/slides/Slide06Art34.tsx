@@ -78,7 +78,7 @@ export default function Slide06Art34() {
       </div>
 
       {/* Simulator */}
-      <SimulatorArt34 />
+      {showSimulator && <SimulatorArt34 />}
     </Slide>
   );
 }

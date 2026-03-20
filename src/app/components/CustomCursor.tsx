@@ -32,11 +32,15 @@ export default function CustomCursor() {
     const handleMouseLeave = () => setIsVisible(false);
 
     // Detect hover on interactive elements
+    const hoverEnter = () => setIsHovering(true);
+    const hoverLeave = () => setIsHovering(false);
+    let interactiveElements: NodeListOf<Element>;
+
     const setupHoverListeners = () => {
-      const interactiveElements = document.querySelectorAll("a, button, [data-cursor-hover]");
+      interactiveElements = document.querySelectorAll("a, button, [data-cursor-hover]");
       interactiveElements.forEach((el) => {
-        el.addEventListener("mouseenter", () => setIsHovering(true));
-        el.addEventListener("mouseleave", () => setIsHovering(false));
+        el.addEventListener("mouseenter", hoverEnter);
+        el.addEventListener("mouseleave", hoverLeave);
       });
     };
 
@@ -52,6 +56,12 @@ export default function CustomCursor() {
       document.removeEventListener("mouseenter", handleMouseEnter);
       document.removeEventListener("mouseleave", handleMouseLeave);
       clearTimeout(timeout);
+      if (interactiveElements) {
+        interactiveElements.forEach((el) => {
+          el.removeEventListener("mouseenter", hoverEnter);
+          el.removeEventListener("mouseleave", hoverLeave);
+        });
+      }
     };
   }, [isVisible, mounted]);
 
